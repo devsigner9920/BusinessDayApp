@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Business Day App', sub: 'Get Business Day for variety format!' });
 });
 
 router.get('/test', function (req, res, next) {

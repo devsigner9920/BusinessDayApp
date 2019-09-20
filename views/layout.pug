@@ -2,6 +2,55 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous')
+    script(src='/scripts/bootstrap.min.js')
+    script(src='https://kit.fontawesome.com/7c63131c69.js' crossorigin='anonymous')
+    style(type="text/css").
+      .body-custom {
+        background-color: #212529;
+      }
+      .body-custom-main {
+        background-color: #383838;
+      }
+      .opacity-custom {
+        opacity: 0.95;
+      }
+      .nav-custom {
+        background-color: #212529;
+      }
+      .navbar-brand-custom {
+        font-weight: bold;
+      }
+      .dropdown-item-custom {
+        color: #ffffff;
+      }
+      .dropdown-menu.show {
+        background-color: #212529;
+      }
+      .container-custom {
+        padding-top: 80px;
+        padding-bottom: 50px;
+        color: #ffffff;
+      }
+      .container-custom-black {
+        color: #000000;
+      }
+      .header-custom {
+        font-weight: bold;
+      }
+      .side-margin {
+        margin: 50px 20px;
+      }
+      .full-size-image-test {
+        width: 100% ;
+        height: 650px;
+        background-color: #b3d7ff;
+      }
+      .button-custom {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+body
     block content

@@ -1,5 +1,74 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .body-custom.opacity-custom.fixed-top
+    .container
+      nav.navbar.navbar-expand-lg.navbar-dark.navbar-custom
+        a.navbar-brand.navbar-brand-custom(href='#') Team Excelsior
+        button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+          span.navbar-toggler-icon
+        #navbarSupportedContent.collapse.navbar-collapse
+          ul.navbar-nav.mr-auto
+            li.nav-item.active
+              a.nav-link(href='#')
+                | Business Day app
+                span.sr-only (current)
+            li.nav-item.dropdown
+              a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                | Another Apps
+              .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+                a.dropdown-item.dropdown-item-custom(href='#') Add Later
+  .body-custom-main
+    .container.container-custom
+      .text-center
+        .display-1.header-custom= title
+        br
+        h1= sub
+  br
+  .container-fluid
+    .row.container-custom-black
+      .col-sm.side-margin
+        .full-size-image-test &nbsp;
+      .col-sm-6
+        form
+          h3
+            i.fas.fa-check-circle
+            | &nbsp;Choose Options
+          br
+          .row
+            .col
+              div(style="margin-bottom: .5rem")
+                span(style="font-size: 1.25rem; font-weight: 500;")
+                  i.fas.fa-filter
+                  | &nbsp;Option1&nbsp;&nbsp;
+                span(style="font-size: .5rem; color: #1271ff")
+                  i.fas.fa-asterisk
+              select.form-control.form-control-lg
+                option default
+                option test1
+                option test2
+                option test3
+            .col
+              div(style="margin-bottom: .5rem")
+                span(style="font-size: 1.25rem; font-weight: 500;")
+                  i.fas.fa-filter
+                  | &nbsp;Option2&nbsp;&nbsp;
+              select.form-control.form-control-lg
+                option default
+                option test1
+                option test2
+                option test3
+          br
+          br
+          .row
+            .col
+              h6 Choose what you want!
+              button.btn.btn-primary.button-custom XML
+              button.btn.btn-danger.button-custom JSON
+              button.btn.btn-success.button-custom XLS
+              button.btn.btn-info.button-custom CSV
+
+      .col-sm.side-margin
+        .full-size-image-test &nbsp;
+  footer
+
