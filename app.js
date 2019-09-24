@@ -3,11 +3,17 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+// [CONFIGURE APP TO USE bodyParser]
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -37,5 +43,19 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+//mongoose.connect()
+var fs = require('fs');
+// var conn = JSON.parse(fs.readFileSync('./connection.json'));
+// var dbInfo = 'mongodb://' + conn.user + ':' + conn.pass + '@' + conn.host + ':' + conn.port + '/' + conn.dbNm;
+//
+// var db = mongoose.connection;
+// db.on('error', console.error);
+// db.once('open', function(){
+  // CONNECTED TO MONGODB SERVER
+  // console.log("Connected to mongod server");
+// });
+// mongoose.connect(dbInfo);
+
 
 module.exports = app;

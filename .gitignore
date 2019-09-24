@@ -2,6 +2,9 @@
 # Created by https://www.gitignore.io/api/node,webstorm
 # Edit at https://www.gitignore.io/?templates=node,webstorm
 
+### DB Connection JSON FILE ignore ###
+connection.json
+
 ### Node ###
 # Logs
 logs
