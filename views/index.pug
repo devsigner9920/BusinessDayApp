@@ -1,0 +1,216 @@
+extends layout
+
+block content
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.css')
+  script(src='scripts/excsrCore.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js')
+  script(type='text/javascript').
+    $(document).ready(function () {
+      excsrCore.init();
+      var LANGUAGE = 'ko';
+      var DATE_FORMAT = 'yyyy-mm-dd';
+
+      var curDate = new Date();
+      var yearStartDate = new Date(curDate.getFullYear(), 0, 1);
+      var yearEndDate = new Date(curDate.getFullYear(), 11, 31);
+      console.log(curDate.getFullYear());
+
+      var startDate = '-' + Math.floor((curDate.getTime() - yearStartDate.getTime()) / (1000 * 3600 * 24)) + 'd';
+      var endDate = '+' + Math.ceil((yearEndDate.getTime() - curDate.getTime()) / (1000 * 3600 * 24)) + 'd';
+      $('.input-daterange').datepicker({
+        language: LANGUAGE, format: DATE_FORMAT, startDate: startDate,
+        endDate: endDate, autoclose: true
+      });
+      $('#term').on('change', function () {
+        $('#yearRow').css('display', 'none');
+        $('#monthRow').css('display', 'none');
+        $('#etcRow').css('display', 'none');
+        if(this.value == 'Year') {
+          $('#yearRow').css('display', 'inline');
+        } else if(this.value == 'Month') {
+          $('#monthRow').css('display', 'inline');
+          $('#monthSelectYear').text(curDate.getFullYear());
+        } else if(this.value == 'ETC') {
+          $('#etcRow').css('display', 'inline');
+        }
+      });
+      $('#language').on('change', function () {
+        if (this.value == 'Korean') {
+          LANGUAGE = 'ko';
+        } else if (this.value == 'English') {
+          LANGUAGE = 'en';
+        }
+        $('.input-daterange').datepicker('destroy');
+        //$('.input-daterange').datepicker('update', {language: LANGUAGE});
+        $('.input-daterange').datepicker({language: LANGUAGE, format: DATE_FORMAT, startDate: startDate,
+          endDate: endDate, autoclose: true});
+      });
+    });
+  .body-custom.opacity-custom.fixed-top
+    .container
+      nav.navbar.navbar-expand-lg.navbar-dark.navbar-custom
+        a.navbar-brand.navbar-brand-custom(href='#') Team Excelsior
+        button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+          span.navbar-toggler-icon
+        #navbarSupportedContent.collapse.navbar-collapse
+          ul.navbar-nav.mr-auto
+            li.nav-item.active
+              a.nav-link(href='#')
+                | Business Day app
+                span.sr-only (current)
+            li.nav-item.dropdown
+              a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                | Another Apps
+              .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+                a.dropdown-item.dropdown-item-custom(href='#') Add Later
+  .body-custom-main
+    .container.container-custom
+      .text-center
+        .display-1.header-custom= title
+        br
+        h1= sub
+  br
+  .container-fluid
+    .row.container-custom-black
+      .col-sm.side-margin
+        //.full-size-image-test &nbsp;
+      .col-sm-6
+        form
+          h3
+            i.fas.fa-check-circle
+            | &nbsp;Choose Options
+          br
+          .row
+            .col
+              div(style="margin-bottom: .5rem")
+                span(style="font-size: 1.25rem; font-weight: 500;")
+                  i.fas.fa-filter
+                  | &nbsp;
+                  | Region
+                  //| &nbsp;&nbsp;
+                //span(style="font-size: .5rem; color: #1271ff")
+                //  i.fas.fa-asterisk
+              select.form-control.form-control-lg.custom-select
+                option Korea
+            .col
+              div(style="margin-bottom: .5rem")
+                span(style="font-size: 1.25rem; font-weight: 500;")
+                  i.fas.fa-filter
+                    | &nbsp;
+                    | Language
+              select#language.form-control.form-control-lg.custom-select
+                option Korean
+                option English
+          br
+          .row
+            .col
+              div(style="margin-bottom: .5rem")
+                span.sub-menu-font
+                  i.fas.fa-calendar
+                  | &nbsp;
+                  | Term
+                  //| &nbsp;&nbsp;
+                //span(style="font-size: .5rem; color: #1271ff")
+                //  i.fas.fa-asterisk
+              select#term.form-control.form-control-lg.custom-select
+                option Year
+                option Month
+                option ETC
+          br
+          #yearRow
+            .row
+              .col
+                div(style="margin-bottom: .5rem")
+                  span.sub-menu-font
+                    i.fas.fa-sliders-h
+                    | &nbsp;
+                  span.sub-menu-font Select&nbsp;
+                  span.sub-menu-font Year
+                select#yearSelect.form-control.form-control-lg.custom-select
+                  option 2019
+          #monthRow(data-toggle='hidden')
+            .row
+              .col
+                div(style="margin-bottom: .5rem")
+                  span.sub-menu-font
+                    i.fas.fa-sliders-h
+                    | &nbsp;
+                  span.sub-menu-font Select&nbsp;
+                  span.sub-menu-font#monthSelectYear
+                  span.sub-menu-font &nbsp;month
+                select#monthSelect.form-control.form-control-lg.custom-select
+                  option 1
+                  option 2
+                  option 3
+                  option 4
+                  option 5
+                  option 6
+                  option 7
+                  option 8
+                  option 9
+                  option 10
+                  option 11
+                  option 12
+          #etcRow(data-toggle='hidden')
+            .row
+              .col
+                div(style="margin-bottom: .5rem")
+                  span.sub-menu-font
+                    i.fas.fa-sliders-h
+                    | &nbsp;
+                    | Date Range
+                .input-group.input-daterange
+                  input#startDate.form-control.form-control(type='text' placeholder='Select start date.')
+                  span
+                    | &nbsp;
+                    i.fas.fa-arrows-alt-h(style='verticalAlign: center; font-size: 1.9rem')
+                    | &nbsp;
+                  input#endDate.form-control.form-control(type='text' placeholder='Select end date.')
+          br
+          .row
+            .col
+              h6 Choose what you want!
+              button.btn.btn-primary.button-custom XML
+              button.btn.btn-danger.button-custom JSON
+              button.btn.btn-success.button-custom XLS
+              button.btn.btn-info.button-custom CSV
+
+      .col-sm.side-margin
+  footer.footer-bs
+    .row
+      .col-md-3.footer-brand.animated.fadeInLeft
+        h2 Team Excelsior
+        p
+          | We are open source making team.
+        p &copy; The MIT License (MIT)
+        p Copyright (c) 2019 Team Excelsior
+      .col-md-4.footer-nav.animated.fadeInUp
+        h4 Menu &mdash;
+        .col-md-6
+          ul.pages
+            li
+              a(href='#') Business Day App
+        //.col-md-6
+        //  ul.list
+        //    li
+        //      a(href='#') About Us
+        //    li
+        //      a(href='#') Contacts
+        //    li
+        //      a(href='#') Terms &amp; Condition
+        //    li
+        //      a(href='#') Privacy Policy
+      .col-md-2.footer-social.animated.fadeInDown
+        h4 About
+        ul
+          li
+            a(href='#') About Us
+          li
+            a(href='#') License
+      .col-md-3.footer-ns.animated.fadeInRight
+        h4 Contact Us
+        p Through mail, request us about bug or apps.
+        p Thank you for your request.
+          .input-group
+            button.btn.btn-primary Feedback!
