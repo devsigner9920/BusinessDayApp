@@ -44,18 +44,18 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-//mongoose.connect()
+// Read connection info
 var fs = require('fs');
-// var conn = JSON.parse(fs.readFileSync('./connection.json'));
-// var dbInfo = 'mongodb://' + conn.user + ':' + conn.pass + '@' + conn.host + ':' + conn.port + '/' + conn.dbNm;
-//
-// var db = mongoose.connection;
-// db.on('error', console.error);
-// db.once('open', function(){
-  // CONNECTED TO MONGODB SERVER
-  // console.log("Connected to mongod server");
-// });
-// mongoose.connect(dbInfo);
+var conn = JSON.parse(fs.readFileSync('./connection.json'));
+var dbInfo = 'mongodb://' + conn.user + ':' + conn.pass + '@' + conn.host + ':' + conn.port + '/' + conn.dbNm;
+
+// mongoDB Connect
+var db = mongoose.connection;
+db.on('error', console.error);
+db.once('open', function(){
+  console.log("Connected to mongod server");
+});
+mongoose.connect(dbInfo);
 
 
 module.exports = app;

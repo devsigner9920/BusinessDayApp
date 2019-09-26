@@ -46,6 +46,19 @@ block content
         $('.input-daterange').datepicker({language: LANGUAGE, format: DATE_FORMAT, startDate: startDate,
           endDate: endDate, autoclose: true});
       });
+
+      $("#jsonDown").click(function () {
+        //excsrCore.getDayByAjax('jsonGet', 'post', 'json');
+        $.ajax({
+          url: 'http://localhost/json',
+          type: 'get',
+          dataType: 'json',
+          success: function (data) {
+            console.log(data);
+          }
+        });
+        return false;
+      });
     });
   .body-custom.opacity-custom.fixed-top
     .container
@@ -74,7 +87,7 @@ block content
   .container-fluid
     .row.container-custom-black
       .col-sm.side-margin
-        //.full-size-image-test &nbsp;
+        .full-size-image-test &nbsp; Ad-on!
       .col-sm-6
         form
           h3
@@ -172,11 +185,11 @@ block content
             .col
               h6 Choose what you want!
               button.btn.btn-primary.button-custom XML
-              button.btn.btn-danger.button-custom JSON
+              button#jsonDown.btn.btn-danger.button-custom JSON
               button.btn.btn-success.button-custom XLS
               button.btn.btn-info.button-custom CSV
-
       .col-sm.side-margin
+        .full-size-image-test &nbsp; Ad-on!
   footer.footer-bs
     .row
       .col-md-3.footer-brand.animated.fadeInLeft
@@ -191,16 +204,6 @@ block content
           ul.pages
             li
               a(href='#') Business Day App
-        //.col-md-6
-        //  ul.list
-        //    li
-        //      a(href='#') About Us
-        //    li
-        //      a(href='#') Contacts
-        //    li
-        //      a(href='#') Terms &amp; Condition
-        //    li
-        //      a(href='#') Privacy Policy
       .col-md-2.footer-social.animated.fadeInDown
         h4 About
         ul

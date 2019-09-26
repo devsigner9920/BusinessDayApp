@@ -5,3 +5,14 @@ excsrCore.init = function () {
         $('[data-toggle="hidden"]').css('display', 'none');
     }
 }
+
+excsrCore.getDayByAjax = function (url, type, dataType) {
+    $.ajax({
+        url: url,
+        type: type,
+        dataType: dataType,
+        success: function (data) {
+            return data;
+        }
+    });
+}
