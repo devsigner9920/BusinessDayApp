@@ -11,4 +11,4 @@ var schema = new mongoose.Schema({
         }]
 });
 
-module.exports = mongoose.model("bizDay", schema, "bizDay");
+module.exports = mongoose.model("bizDate", schema, "bizDate");

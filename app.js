@@ -55,7 +55,8 @@ db.on('error', console.error);
 db.once('open', function(){
   console.log("Connected to mongod server");
 });
-mongoose.connect(dbInfo);
 
+// To solve url error, use useNewUrlParser
+mongoose.connect(dbInfo, { useNewUrlParser: true });
 
 module.exports = app;
