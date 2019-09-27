@@ -50,7 +50,7 @@ block content
       $("#jsonDown").click(function () {
         //excsrCore.getDayByAjax('jsonGet', 'post', 'json');
         $.ajax({
-          url: 'http://localhost/json',
+          url: '/json',
           type: 'get',
           dataType: 'json',
           success: function (data) {
