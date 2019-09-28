@@ -29,8 +29,11 @@ block content
         if(this.value == 'Year') {
           $('#yearRow').css('display', 'inline');
         } else if(this.value == 'Month') {
+          $('#yearRow').css('display', 'inline');
           $('#monthRow').css('display', 'inline');
-          $('#monthSelectYear').text(curDate.getFullYear());
+          
+          //- $('#monthSelectYear').text(curDate.getFullYear());
+          $('#monthSelectYear').text($('#yearSelect')[0].value);
         } else if(this.value == 'ETC') {
           $('#etcRow').css('display', 'inline');
         }
@@ -46,13 +49,27 @@ block content
         $('.input-daterange').datepicker({language: LANGUAGE, format: DATE_FORMAT, startDate: startDate,
           endDate: endDate, autoclose: true});
       });
+      $('#yearSelect').on('change', function() {
+        if($('#term')[0].value == 'Month') {
+          $('#monthSelectYear').text($('#yearSelect')[0].value);
+        }
+      });
 
       $("#jsonDown").click(function () {
         //excsrCore.getDayByAjax('jsonGet', 'post', 'json');
+        const sendData = {
+          'term': $('#term')[0].value,
+          'year': $('#yearSelect')[0].value,
+          'month': $('#monthSelect')[0].value,
+          'startDate': $('#startDate')[0].value,
+          'endDate': $('#endDate')[0].value
+        };
+
         $.ajax({
-          url: '/json',
+          url: '/bizDay/json',
           type: 'get',
           dataType: 'json',
+          data: sendData,
           success: function (data) {
             console.log(data);
           }
@@ -142,6 +159,10 @@ block content
                   span.sub-menu-font Year
                 select#yearSelect.form-control.form-control-lg.custom-select
                   option 2019
+                  option 2020
+                  option 2021
+                  option 2022
+                  option 2023
           #monthRow(data-toggle='hidden')
             .row
               .col
