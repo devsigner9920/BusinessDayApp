@@ -34,7 +34,13 @@ router.get('/bizDay/json', function (req, res) {
         res.status(500).send({ error: 'database failure' });
       });
   } else if(req.query['term'] == 'ETC') {
-
+    BizDay.findByBetweenDate(req.query)
+    .then((bizDay) => {
+      if(!bizDay) return res.status(404).send({ error: 'not found' });
+      res.json(bizDay);
+    }).catch((err) => {
+      res.status(500).send({ error: 'database failure' });
+    });
   } else {
     res.status(500).send({ error: 'Something Wrong...' });
   }
