@@ -35,7 +35,6 @@ dateSchema.statics.findByYear = function (bizDate) {
       {
         "$group": {
           "_id": {
-            "_id": "$_id",
             "_year": "$_year",
             "month": "$months.month"
           },
@@ -45,8 +44,11 @@ dateSchema.statics.findByYear = function (bizDate) {
         }
       },
       {
+        "$sort": {"_id.month":1}
+      },
+      {
         "$group": {
-          "_id": "$_id._id",
+          "_id": "$_id.''",
           "_year": {
             "$first": "$_id._year"
           },
@@ -89,7 +91,6 @@ dateSchema.statics.findByMonth = function (bizDate) {
       {
         "$group": {
           "_id": {
-            "_id": "$_id",
             "_year": "$_year",
             "month": "$months.month"
           },
@@ -100,7 +101,7 @@ dateSchema.statics.findByMonth = function (bizDate) {
       },
       {
         "$group": {
-          "_id": "$_id._id",
+          "_id": "$_id.''",
           "_year": {
             "$first": "$_id._year"
           },
@@ -154,12 +155,12 @@ dateSchema.statics.findByBetweenDate = function (bizDate) {
           "$and": [
             {
               "YearMonthDay": {
-                "$gte": "` + bizDate['startDate'].replaceAll("-", "") + `20191015"
+                "$gte": "` + bizDate['startDate'] + `"
               }
             },
             {
               "YearMonthDay": {
-                "$lte": "` + bizDate['endDate'].replaceAll("-", "") + `"
+                "$lte": "` + bizDate['endDate'] + `"
               }
             }
           ]
@@ -168,7 +169,6 @@ dateSchema.statics.findByBetweenDate = function (bizDate) {
       {
         "$group": {
           "_id": {
-            "_id": "$_id",
             "_year": "$_year",
             "month": "$months.month"
           },
@@ -178,8 +178,11 @@ dateSchema.statics.findByBetweenDate = function (bizDate) {
         }
       },
       {
+        "$sort": {"_id.month":1}
+      },
+      {
         "$group": {
-          "_id": "$_id._id",
+          "_id": "$_id.''",
           "_year": {
             "$first": "$_id._year"
           },
@@ -204,11 +207,6 @@ String.prototype.zfill = function (size) {
     zs = "0" + zs;
   }
   return zs;
-}
-
-// 특정문자 모두 삭제
-String.prototype.replaceAll = function(org, dest) {
-  return this.split(org).join(dest);
 }
 
 module.exports = mongoose.model("bizDay", dateSchema, "bizDay");

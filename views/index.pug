@@ -60,9 +60,9 @@ block content
         const sendData = {
           'term': $('#term')[0].value,
           'year': $('#yearSelect')[0].value,
-          'month': $('#monthSelect')[0].value,
-          'startDate': $('#startDate')[0].value,
-          'endDate': $('#endDate')[0].value
+          'month': $('#monthSelect')[0].value.zfill(2),
+          'startDate': $('#startDate')[0].value.replaceAll("-", ""),
+          'endDate': $('#endDate')[0].value.replaceAll("-", "")
         };
 
         $.ajax({
@@ -72,10 +72,46 @@ block content
           data: sendData,
           success: function (data) {
             console.log(data);
+            let outputFileName = "BizDay_";
+            if(sendData['term'] == "Year") {
+              outputFileName += sendData['year'];
+            } else if(sendData['term'] == "Month") {
+              outputFileName += sendData['year'];
+              outputFileName += sendData['month'];
+            } else if(sendData['term'] == "ETC") {
+              outputFileName += sendData['startDate'] + "-";
+              outputFileName += sendData['endDate'] + "-";
+            }
+            
+            downloadObjectAsJson(data, outputFileName);
           }
         });
         return false;
       });
+
+      function downloadObjectAsJson(data, exportName){
+        const StringfiedData = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, "\t"));
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", StringfiedData);
+        downloadAnchorNode.setAttribute("download", exportName + ".json");
+        document.body.appendChild(downloadAnchorNode); // required for firefox
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+      }
+
+      // Fill zero("0") until size equal to String size
+      String.prototype.zfill = function (size) {
+        let zs = this;
+        while (zs.length < (size || 2)) {
+          zs = "0" + zs;
+        }
+        return zs;
+      }
+
+      // 특정문자 모두 삭제
+      String.prototype.replaceAll = function(org, dest) {
+        return this.split(org).join(dest);
+      }
     });
   .body-custom.opacity-custom.fixed-top
     .container
