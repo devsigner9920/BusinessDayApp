@@ -80,7 +80,7 @@ block content
               outputFileName += sendData['month'];
             } else if(sendData['term'] == "ETC") {
               outputFileName += sendData['startDate'] + "-";
-              outputFileName += sendData['endDate'] + "-";
+              outputFileName += sendData['endDate'];
             }
             
             downloadObjectAsJson(data, outputFileName);
