@@ -12,8 +12,10 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "mongoose": "^5.7.1",
+    "js2xmlparser": "^4.0.0",
+    "mongoose": "^5.7.3",
     "morgan": "~1.9.1",
+    "nodemon": "^1.19.3",
     "pug": "^2.0.4",
     "saslprep": "^1.0.3"
   }

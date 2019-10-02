@@ -89,6 +89,39 @@ block content
         return false;
       });
 
+      $("#xmlDown").click(function () {
+        //excsrCore.getDayByAjax('xmlGet', 'post', 'xml');
+        const sendData = {
+          'term': $('#term')[0].value,
+          'year': $('#yearSelect')[0].value,
+          'month': $('#monthSelect')[0].value.zfill(2),
+          'startDate': $('#startDate')[0].value.replaceAll("-", ""),
+          'endDate': $('#endDate')[0].value.replaceAll("-", "")
+        };
+
+        $.ajax({
+          url: '/bizDay/xml',
+          type: 'get',
+          dataType: 'text',
+          data: sendData,
+          success: function (data) {
+            console.log(data);
+            let outputFileName = "BizDay_";
+            if(sendData['term'] == "Year") {
+              outputFileName += sendData['year'];
+            } else if(sendData['term'] == "Month") {
+              outputFileName += sendData['year'];
+              outputFileName += sendData['month'];
+            } else if(sendData['term'] == "ETC") {
+              outputFileName += sendData['startDate'] + "-";
+              outputFileName += sendData['endDate'];
+            }
+            downloadObjectAsXml(data, outputFileName);
+          }
+        });
+        return false;
+      });
+
       function downloadObjectAsJson(data, exportName){
         const StringfiedData = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, "\t"));
         const downloadAnchorNode = document.createElement('a');
@@ -98,6 +131,17 @@ block content
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
       }
+
+      function downloadObjectAsXml(data, exportName){
+        const StringfiedData = "data:Application/octet-stream;charset=utf-8," + encodeURIComponent(data);
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", StringfiedData);
+        downloadAnchorNode.setAttribute("download", exportName + ".xml");
+        document.body.appendChild(downloadAnchorNode); // required for firefox
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+      }
+
 
       // Fill zero("0") until size equal to String size
       String.prototype.zfill = function (size) {
@@ -241,7 +285,7 @@ block content
           .row
             .col
               h6 Choose what you want!
-              button.btn.btn-primary.button-custom XML
+              button#xmlDown.btn.btn-primary.button-custom XML
               button#jsonDown.btn.btn-danger.button-custom JSON
               button.btn.btn-success.button-custom XLS
               button.btn.btn-info.button-custom CSV
